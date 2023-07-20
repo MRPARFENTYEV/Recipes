@@ -18,8 +18,9 @@ from django.urls import path
 
 import calculator.views
 
-
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('show', calculator.views.show)
+    # path('show', calculator.views.show),
+    # path('',calculator.views.pagi),
+    path('omlet',calculator.views.omlet)
 ]
