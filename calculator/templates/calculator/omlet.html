@@ -1,17 +1,12 @@
-<!DOCTYPE html>
+<!--!DOCTYPE html>-->
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Рецепты</title>
 </head>
 <body>
-
-{% for ingredient, amount in recipe.items %}
+{% for ingredient, amount in omlet.items %}
     <p>{{ ingredient }}: {{ amount }}</p>
-{% if servings %}
-    <p>{{ ingredient }}: {{ amount * servings }}</p>
-        {% endif %}
-
 {% empty %}
     <p>Такого рецепта не знаю :(</p>
 {% endfor %}
