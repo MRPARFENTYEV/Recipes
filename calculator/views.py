@@ -18,26 +18,28 @@ DATA = {
         'сыр, ломтик': 1,
         'помидор, ломтик': 1,
     }}
-
+# ['http:', '', '127.0.0.1:8000', 'omlet', '']
 def omlet(request):
     response = str(request).split('/')
+    print(response)
     # res = int(request).split('/')
-    dish_response_title = response[-2]
-    pn = response[-1]
-    pn = int(pn[10:])
+    dish_response_title = response[1]
+    pn = int(response[2].split('=')[1].split("'")[0])
+    # pn = int(pn[10:])
+    # ["<WSGIRequest: GET '", 'omlet', "?servings=4'>"]
     context = {}
-    person_num = pn
-    servings = dish_response_title
+    # person_num = pn
+    # servings = dish_response_title
     for dish_title, dish_ingridienst_amount in DATA.items():
-        if dish_title == servings:
+        if dish_title == dish_response_title:
             context[dish_title] = {}
             for ingridients, amount in dish_ingridienst_amount.items():
-                total_amount = amount * person_num
+                total_amount = amount * pn
                 context[dish_title][ingridients] = total_amount
         else:
             pass
-    return render(request, 'calculator/omlet.html', context)
-#
+    return render(request, 'calculator/index.html', context)
+
 #         else:
 #             pass
 # def omlet(request):
@@ -51,9 +53,10 @@ def omlet(request):
 
 
 
-# response ='http://127.0.0.1:8000/pasta/'.split('/')
-# res = 'http://127.0.0.1:8000/omlet/?servings=4'.split('/')
-# dish_response_title = response[-2]
+# response ='http://127.0.0.1:8000/omlet/'.split('/')
+# res = 'http://127.0.0.1:8000/omlet/?servings=7'.split('/')
+# dish_response_title = response
+# print(dish_response_title)
 # pn = res[-1]
 # pn = int(pn[10:])
 # # print(pn)
@@ -115,9 +118,9 @@ def omlet(request):
 #     result = op1 + op2
 #     return HttpResponse(f'Sum = {result}')
 
-# context = {}
-# for recipe, value in DATA.items():
-#     context[recipe] = value
+context = {}
+for recipe, value in DATA.items():
+    context[recipe] = value
 # print(context)
 
 # for k,v in context.items():
@@ -166,7 +169,7 @@ def omlet(request):
 #
 # def omlet(request):
 #     return render(request, 'calculator/omlet.html', context)
-#
+# #
 # def buter(request):
 #     return render(request, 'calculator/buter.html', context)
 
