@@ -18,8 +18,20 @@ DATA = {
         'сыр, ломтик': 1,
         'помидор, ломтик': 1,
     }}
-request1 = ['http:', '', '127.0.0.1:8000', 'omlet', '']
-request2 = ["<WSGIRequest: GET '", 'omlet', "'>"]
+def get_dish(request):
+    req = str(request).split('/')
+    dish_response_title = req[1]
+    servings = int(request.GET.get('servings', 1))
+    ingredients = {}
+    name = ''
+    if dish_response_title in DATA:
+        ingredients = {k: (v * servings) for k, v in DATA[dish_response_title].items()}
+        name = dish_response_title
+    context = {'recipe': ingredients,
+               'name': name}
+    return render(request, 'calculator/index.html', context)
+# request1 = ['http:', '', '127.0.0.1:8000', 'omlet', '']
+# request2 = ["<WSGIRequest: GET '", 'omlet', "'>"]
 # print(len(request1))
 # print(len(request2))
 # def omlet(request):
@@ -132,31 +144,52 @@ request2 = ["<WSGIRequest: GET '", 'omlet', "'>"]
 
 # __________________________________________________________________
 
-def omlet(request):
-
-
-    req = str(request).split('/') #["<WSGIRequest: GET '", 'omlet', "?servings=4'>"] =3 |  ["<WSGIRequest: GET '", 'omlet', "'>"] = 3
-    finder = req[2]
-
-    if "'>" != finder:
-        pn = int(req[2].split('=')[1].split("'")[0])
-    else:
-        pn = 1
-
-    dish_response_title = req[1]
-
-    context = {}
-    for dish_title, dish_ingridienst_amount in DATA.items():
-        if dish_title == dish_response_title:
-            context[dish_title] = {}
-            for ingridients, amount in dish_ingridienst_amount.items():
-                total_amount = amount * pn
-                context[dish_title][ingridients] = total_amount
-        else:
-            pass
-    return render(request, 'calculator/omlet.html', context)
+# def omlet(request):
+#
+#
+#     req = str(request).split('/') #["<WSGIRequest: GET '", 'omlet', "?servings=4'>"] =3 |  ["<WSGIRequest: GET '", 'omlet', "'>"] = 3
+#     finder = req[2]
+#
+#     if "'>" != finder:
+#         pn = int(req[2].split('=')[1].split("'")[0])
+#     else:
+#         pn = 1
+#
+#     dish_response_title = req[1]
+#     print(dish_response_title)
+#     print('________________999')
+#
+#     context = {}
+#     for dish_title, dish_ingridienst_amount in DATA.items():
+#         if dish_title == dish_response_title:
+#             context[dish_response_title] = {}
+#             for ingridients, amount in dish_ingridienst_amount.items():
+#                 total_amount = amount * pn
+#                 context[dish_response_title][ingridients] = total_amount
+#         else:
+#             pass
+#     return render(request, 'calculator/omlet.html', context)
 
 # _____________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

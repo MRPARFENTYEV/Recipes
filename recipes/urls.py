@@ -19,11 +19,14 @@ from django.urls import path
 import calculator.views
 
 urlpatterns = [
+    path('omlet/',calculator.views.get_dish),
+    path('pasta/',calculator.views.get_dish),
+    path('buter/',calculator.views.get_dish),
 
     # path('admin/', calculator.views.recipe),
     # path('show', calculator.views.show),
     # path('',calculator.views.pagi),
-    path('omlet/',calculator.views.omlet),
+    # path('omlet/',calculator.views.omlet),
     # path('pasta/',calculator.views.pasta),
     # path('buter/',calculator.views.buter),
     # path('sum/<int:op1>/<int:op2>/', sum),
